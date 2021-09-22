@@ -8,16 +8,22 @@ const password2 = document.getElementById("password2");
 
 // Error message
 function showError(input, message) {
-  const formControl = input.parentElement;
-  formControl.className = "form-control error";
-  const small = formControl.querySelector("small");
-  small.innerText = message;
+  const formControl = input.parentElement; // select parent
+  formControl.className = "form-control error"; // modify parent class name
+  const small = formControl.querySelector("small"); // select small by tag
+  small.innerText = message; // set small text to message
 }
 
 // Success message
 function showSuccess(input) {
   const formControl = input.parentElement;
   formControl.className = "form-control success";
+}
+
+// Check Email
+function isValidEmail(email) {
+  const re = /\S+@\S+\.\S+/;
+  return re.test(email);
 }
 
 // Event listeners
@@ -28,5 +34,27 @@ form.addEventListener("submit", function (e) {
     showError(username, "Username is required");
   } else {
     showSuccess(username);
+  }
+
+  if (email.value === "") {
+    showError(email, "Email is required");
+  }
+  // else...if NOT valid email
+  else if (!isValidEmail(email.value)) {
+    showError(email, "Email is not valid");
+  } else {
+    showSuccess(email);
+  }
+
+  if (password.value === "") {
+    showError(password, "Password is required");
+  } else {
+    showSuccess(password);
+  }
+
+  if (password2.value === "") {
+    showError(password2, "Password 2 is required");
+  } else {
+    showSuccess(password2);
   }
 });
