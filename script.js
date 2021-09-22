@@ -1,3 +1,5 @@
+"use strict";
+
 const form = document.getElementById("form");
 const username = document.getElementById("username");
 const email = document.getElementById("email");
@@ -13,6 +15,10 @@ function showError(input, message) {
 }
 
 // Success message
+function showSuccess(input) {
+  const formControl = input.parentElement;
+  formControl.className = "form-control success";
+}
 
 // Event listeners
 form.addEventListener("submit", function (e) {
