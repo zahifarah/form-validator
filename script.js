@@ -34,13 +34,16 @@ function checkEmail(input) {
 
 // Check required fields
 function checkRequired(inputArr) {
+  let isRequired = false;
   inputArr.forEach(function (input) {
     if (input.value.trim() === "") {
       showError(input, `${getFieldName(input)} is required`);
+      isRequired = true;
     } else {
       showSuccess(input);
     }
   });
+  return isRequired;
 }
 
 // Check input length
@@ -74,9 +77,11 @@ function getFieldName(input) {
 // Event listeners
 form.addEventListener("submit", function (e) {
   e.preventDefault();
-  checkRequired([username, email, password, password2]);
-  checkLength(username, 3, 15);
-  checkLength(password, 6, 25);
-  checkEmail(email);
-  checkPasswordsMatch(password, password2);
+
+  if (!checkRequired([username, email, password, password2])) {
+    checkLength(username, 3, 15);
+    checkLength(password, 6, 25);
+    checkEmail(email);
+    checkPasswordsMatch(password, password2);
+  }
 });
